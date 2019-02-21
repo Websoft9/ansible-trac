@@ -1,43 +1,43 @@
-# - name: upgrade pip
-#   shell: pip install --upgrade pip
+- name: upgrade pip
+  shell: pip install --upgrade pip
 
-# - name: install subversion python-dev libmysqlclient-dev python-pexpect
-#   apt: 
-#     name: [subversion, python-dev, libmysqlclient-dev, python-pexpect, python-passlib]
-#     state: latest
-#     update-cache: yes
+- name: install subversion python-dev libmysqlclient-dev python-pexpect
+  apt: 
+    name: [subversion, python-dev, libmysqlclient-dev, python-pexpect, python-passlib]
+    state: latest
+    update-cache: yes
 
-# - name: install other Python Packages 
-#   pip:
-#     name: [genshi, Babel, docutils, Pygments, pytz, gunicorn]
-#     state: latest
+- name: install other Python Packages 
+  pip:
+    name: [genshi, Babel, docutils, Pygments, pytz, gunicorn]
+    state: latest
 
-# - name: install trac
-#   pip:
-#     name: [trac, mysql-python]
-#     state: latest
+- name: install trac
+  pip:
+    name: [trac, mysql-python]
+    state: latest
 
-# - name: touch shell script
-#   copy:
-#     src: trac.exp
-#     dest: /root/trac.exp
-#     owner: root
-#     group: root
-#     mode: 0755
+- name: touch shell script
+  copy:
+    src: trac.exp
+    dest: /root/trac.exp
+    owner: root
+    group: root
+    mode: 0755
 
-# - name: install expect
-#   apt:
-#     name: expect
-#     state: latest
+- name: install expect
+  apt:
+    name: expect
+    state: latest
 
-# - name: Create Project Environment
-#   shell: expect ~/trac.exp
+- name: Create Project Environment
+  shell: expect ~/trac.exp
 
 
-# - name: delete ~/trac.exp
-#   file:
-#     path: /root/trac.exp
-#     state: absent
+- name: delete ~/trac.exp
+  file:
+    path: /root/trac.exp
+    state: absent
 
 # - name: Create Project Environment of trac
 #   expect:
@@ -48,31 +48,28 @@
 #     timeout: 60
 #     echo: yes
 
-# - name: create tracwsgi.py
-#   template:
-#     src: tracwsgi.py
-#     dest: /data/wwwroot/trac/tracwsgi.py
-#     mode: 0640
+- name: create tracwsgi.py
+  template:
+    src: tracwsgi.py
+    dest: /data/wwwroot/trac/tracwsgi.py
+    mode: 0640
 
-# - name: generate user and password
-#   htpasswd:
-#     path: /etc/nginx/conf.d/users
-#     name: admin
-#     password: admin
-#     owner: root
-#     group: root
-#     mode: 0640
+- name: generate user and password
+  htpasswd:
+    path: /etc/nginx/conf.d/users
+    name: admin
+    password: admin
+    owner: root
+    group: root
+    mode: 0640
 
-# - name: gnuicorn
-#   shell: cd /data/wwwroot/trac/ && gunicorn -D -w2 tracwsgi:application -b localhost:8000
-
-# - name: Create Superset PID Dir
-#   file:
-#     path: /run/trac
-#     state: directory
-#     owner: root
-#     group: root
-#     mode: 0755
+- name: Create Superset PID Dir
+  file:
+    path: /run/trac
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
 
 - name: create trac.service
   template:
