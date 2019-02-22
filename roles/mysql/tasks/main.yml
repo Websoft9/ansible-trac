@@ -59,9 +59,5 @@
   when: remote == 'yes'
   notify: restart MySQL
 
-- name: create trac database
-  mysql_db:
-      name: trac
-      state: present
-      login_user: root
-      login_password: "{{mysql_password}}"
+- name: create database
+  shell: mysql -uroot -p123456 -e "CREATE DATABASE trac CHARACTER SET utf8 COLLATE utf8_bin;"

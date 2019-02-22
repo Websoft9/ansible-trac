@@ -25,14 +25,8 @@
     group: root
     mode: 0755
 
-- name: install expect
-  apt:
-    name: expect
-    state: latest
-
 - name: Create Project Environment
   shell: expect ~/trac.exp
-
 
 - name: delete ~/trac.exp
   file:
@@ -63,7 +57,7 @@
     group: root
     mode: 0640
 
-- name: Create Superset PID Dir
+- name: Create Trac PID Dir
   file:
     path: /run/trac
     state: directory
@@ -78,7 +72,7 @@
     mode: 0644
   notify: start trac
 
-- name: copy trac configuration file
+- name: copy trac's nginx configuration file
   template:
       src: default
       dest: /etc/nginx/sites-available/default
