@@ -1,7 +1,7 @@
 [Unit]
 After=network.target
 [Service]
-PIDFile=/run/trac/pid
+PIDFile=/data/wwwroot/trac/pid
 User=root
 Group=root
 WorkingDirectory=/data/wwwroot/trac

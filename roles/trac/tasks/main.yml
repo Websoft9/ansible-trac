@@ -59,7 +59,7 @@
 
 - name: Create Trac PID Dir
   file:
-    path: /run/trac
+    path: /data/wwwroot/trac
     state: directory
     owner: root
     group: root
