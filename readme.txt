@@ -1,4 +1,4 @@
-Websoft9 Trac Stack 2.15
+Websoft9 Trac Stack Trac 1.2.3
 
 1. OVERVIEW
 
@@ -20,7 +20,7 @@ Websoft9 Trac stack ships with the following software versions:
 
 --- main components ---
 
-- Trac 2.15
+- Trac Trac 1.2.3
 - MySQL 5.7.25
 - Python 2.7.15rc1 and 3.6.7
 - Nginx 1.14.0
