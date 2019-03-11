@@ -20,9 +20,10 @@ Websoft9 Trac stack ships with the following software versions:
 
 --- main components ---
 
--Jenkins2.15
--JAVA1.8.0_201
--Nginx 1.14.0
+- Trac 2.15
+- MySQL 5.7.25
+- Python 2.7.15rc1 and 3.6.7
+- Nginx 1.14.0
 
 --- other components ---
 
