@@ -3,6 +3,8 @@
     name: '*'
     state: latest
     force_apt_get: True
+    update_cache: yes
+    autoremove: yes
 
 - name: install nginx
   apt:
