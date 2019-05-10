@@ -1,5 +1,5 @@
 - name: Trac
-  hosts: Trac
+  hosts: trac
   become: yes
   become_method: sudo
   become_user: ubuntu
