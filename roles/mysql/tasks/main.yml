@@ -59,8 +59,51 @@
   when: remote == 'yes'
   notify: restart MySQL
 
-- name: create database
-  shell: mysql -uroot -p123456 -e "CREATE DATABASE trac CHARACTER SET utf8 COLLATE utf8_bin;"
+- name: Setting rc.local
+  file:
+    path: /etc/rc.local
+    state: touch
+    mode: 0750
+
+- name: Write rc.local
+  shell: echo "#!/bin/bash" > /etc/rc.local
+
+- name: restart rc.local
+  service: name=rc.local state=restarted enabled=yes
+
+- name: Create credentials Folder
+  file:
+    path: /credentials
+    owner: root
+    group: root
+    state: directory
+
+- name: Create Password doc
+  file:
+    path: /credentials/password.txt
+    mode: 644
+    state: touch
+
+- name: Write Databases Password
+  shell: echo 'Databases root Password:'{{mysql_password}}  > /credentials/password.txt
+
+- name: Password Text File Permission
+  file:
+    path: /credentials/password.txt
+    mode: 0644
+
+- name: Databases Random Password
+  copy: 
+    src: init.sh
+    dest: /root/
+    mode: 0750
+
+- name: Setting Startup
+  lineinfile:
+    path: /etc/rc.local
+    regexp: '/root/init.sh'
+    line: '/root/init.sh'
+    mode: 0750
 
 - name: Setting File Permission
   shell: find /data/mysql -type f -exec chmod 640 {} \;

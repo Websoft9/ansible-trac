@@ -17,31 +17,23 @@
     name: [trac, mysql-python]
     state: latest
 
-- name: touch shell script
-  copy:
-    src: trac.exp
-    dest: /root/trac.exp
-    owner: root
-    group: root
-    mode: 0755
+
+- name: create database
+  mysql_db:
+    login_user: root 
+    login_password: 123456
+    name: trac
+    encoding: 'utf8'
+    collation: 'utf8_bin'
+    state: present
 
 - name: Create Project Environment
-  shell: expect ~/trac.exp
-
-- name: delete ~/trac.exp
-  file:
-    path: /root/trac.exp
-    state: absent
-
-# - name: Create Project Environment of trac
-#   expect:
-#     command: trac-admin /data/wwwroot/trac initenv
-#     responses:
-#       '[My Project]': 'trac'
-#       '[sqlite:db/trac.db]': 'mysql://root:123456@localhost:3306/trac'
-#     timeout: 60
-#     echo: yes
-
+  expect:
+    command: trac-admin /data/wwwroot/trac initenv 
+    responses:
+        "Project Name": "trac"
+        "Database connection string": "mysql://root:123456@localhost:3306/trac"
+   
 - name: create tracwsgi.py
   template:
     src: tracwsgi.py
@@ -56,7 +48,6 @@
     owner: root
     group: root
     mode: 0640
-
 
 - name: create trac.service
   template:
@@ -75,28 +66,11 @@
 - name: Grant authorization to admin
   shell: trac-admin /data/wwwroot/trac permission add admin TRAC_ADMIN
 
-- name: Setting rc.local
-  file:
-    path: /etc/rc.local
-    state: touch
-    mode: 0750
-
-- name: Write rc.local
-  shell: echo "#!/bin/bash" > /etc/rc.local
-
-- name: restart rc.local
-  service: name=rc.local state=restarted enabled=yes
-
-- name: Write Databases Password
-  shell: echo 'Databases root Password:'{{mysql_password}}  > /root/password.txt
-
-- name: Password Text File Permission
-  file:
-    path: /root/password.txt
-    mode: 0640
     
 - name: install usermanager plugin
-  shell: easy_install https://trac-hacks.org/svn/accountmanagerplugin/tags/acct_mgr-0.5.0
+  pip:
+    name: TracAccountManager
+    executable: pip2
 
 - name: replace trac.ini
   copy:
@@ -105,18 +79,7 @@
     mode: 0640
   notify: restart nginx
 
-- name: Databases Random Password
-  copy: 
-    src: init.sh
-    dest: /root/
-    mode: 0750
 
-- name: Setting Startup
-  lineinfile:
-    path: /etc/rc.local
-    regexp: '/root/init.sh'
-    line: '/root/init.sh'
-    mode: 0750
 
 - name: Setting File Permission
   shell: find /data/* -type f -exec chmod 640 {} \;
