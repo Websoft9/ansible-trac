@@ -1,4 +1,4 @@
-- name: Trac
+- name: end
   hosts: trac
   become: yes
   become_method: sudo
@@ -19,3 +19,4 @@
     - { role: nginx, tags: nginx }
     - { role: mysql, tags: mysql }
     - { role: trac, tags: trac }
+    - { role: end, tags: end }
