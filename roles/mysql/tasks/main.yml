@@ -85,7 +85,7 @@
     state: touch
 
 - name: Write Databases Password
-  shell: echo 'Databases root Password:'{{mysql_password}}  > /credentials/password.txt
+  shell: echo 'MySQL Password:'{{mysql_password}}  > /credentials/password.txt
 
 - name: Password Text File Permission
   file:
