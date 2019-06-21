@@ -9,6 +9,7 @@ echo -e 'MySQL username:root\nMySQL Password:'$new_password  > /credentials/pass
 
 sed -i "s/123456/$new_password/" /data/wwwroot/trac/conf/trac.ini
 userdel -rf websoft9      
+rm -rf /var/db/sudo/lectured/websoft9                                          
 sed -i "s/\/root\/init.sh//" /etc/rc.local                                                      
 
 rm -rf /root/init.sh
