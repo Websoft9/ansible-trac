@@ -21,4 +21,4 @@
     - { role: nginx, tags: nginx }
     - { role: mysql, tags: mysql }
     - { role: trac, tags: trac }
-    # - { role: end, tags: end }
+    - { role: end, tags: end }
