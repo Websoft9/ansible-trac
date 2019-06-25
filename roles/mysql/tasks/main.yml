@@ -110,3 +110,8 @@
 
 - name: Setting Directory Permission
   shell: find /data/mysql -type d -exec chmod 750 {} \; 
+
+- name: del mysql Automatically generated for Debian scripts.
+  file:
+    path: /etc/mysql/debian.cnf
+    state: absent
