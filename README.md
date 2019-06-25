@@ -1,4 +1,4 @@
-# ERPNext自动化安装与部署
+# Trac自动化安装与部署
 
 本项目是基于 Ansible 的 Trac 自动化安装脚本，实现在Ansible上一键安装Trac。本项目是开源项目，支持MIT开源协议。如果您不熟悉Ansible的使用，您可以直接使用我们在公有云上提供的镜像。
 
@@ -8,11 +8,11 @@
 
 ## 服务器配置要求
 
-If you are using on a VPS make sure it has >= 1Gb of RAM or has swap setup properly. [详细查看](https://github.com/frappe/bench)
+最低1核1G
 
 ## 版本
 
-本项目采用pip安装，每次安装均可以保证为最新版。
+本项目采用pip安装，每次安装均可以保证为最新版。[查看Trac最新版本](https://pypi.org/project/Trac/)
 
 ## 安装指南
 
