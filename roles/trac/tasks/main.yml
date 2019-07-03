@@ -54,14 +54,23 @@
     src: trac.service
     dest: /lib/systemd/system/trac.service
     mode: 0644
-  notify: start trac
+ 
+- name: start trac
+  service:
+    name: trac
+    state: started
+    enabled: yes
 
 - name: copy trac's nginx configuration file
   template:
       src: default
       dest: /etc/nginx/sites-available/default
       mode: 0644
-  notify: restart nginx
+
+- name: restart nginx
+  service:
+      name: nginx
+      state: restarted
 
 - name: Grant authorization to admin
   shell: trac-admin /data/wwwroot/trac permission add admin TRAC_ADMIN
@@ -77,7 +86,11 @@
     src: trac.ini
     dest: /data/wwwroot/trac/conf/
     mode: 0640
-  notify: restart nginx
+
+- name: restart nginx
+  service:
+      name: nginx
+      state: restarted
 
 
 
