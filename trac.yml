@@ -1,21 +1,17 @@
+# 核心任务
 - name: Trac
   hosts: all
   become: yes
   become_method: sudo
-  become_user: root
-  gather_facts: False
-  pre_tasks:
-   - name: 'install python'
-     raw: 'sudo apt update && sudo apt-get -y install python'
 
-- name: Trac
-  hosts: all
-  become: yes
-  become_method: sudo
-  become_user: root
+  vars_files:
+    - vars/main.yml
 
   roles:
-    - { role: common, tags: common }
-    - { role: nginx, tags: nginx }
-    - { role: mysql, tags: mysql }
-    - { role: trac, tags: trac }
+    - { role: role_common, tags: "role_common" }
+    - { role: role_cloud, tags: "role_cloud" }
+    - { role: role_nginx, tags: "role_nginx" }
+    - { role: role_mysql, tags: "role_mysql" }
+    - { role: trac, tags: "trac" }
+    - { role: role_preend, tags: "role_preend" }
+    - { role: role_end, tags: "role_end" }

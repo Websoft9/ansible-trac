@@ -21,7 +21,7 @@
 - name: create database
   mysql_db:
     login_user: root 
-    login_password: "{{mysql_root_password}}"
+    login_password: 123456
     name: trac
     encoding: 'utf8'
     collation: 'utf8_bin'
@@ -32,7 +32,7 @@
     command: trac-admin /data/wwwroot/trac initenv 
     responses:
         "Project Name": "trac"
-        "Database connection string": "mysql://root:{{mysql_root_password}}@localhost:3306/trac"
+        "Database connection string": "mysql://root:123456@localhost:3306/trac"
    
 - name: create tracwsgi.py
   template:
@@ -91,6 +91,7 @@
   service:
       name: nginx
       state: restarted
+
 
 
 - name: Setting File Permission
